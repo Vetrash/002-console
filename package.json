@@ -1,0 +1,32 @@
+{
+  "name": "002-console",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "current": "node ./task_1/current.js",
+    "add": "node ./task_1/add.js",
+    "sub": "node ./task_1/sub.js",
+    "guessGame": "node ./task_2/guessGame.js"
+  },
+  "scripts": {
+    "current": "node ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vetrash/002-console/issues"
+  },
+  "homepage": "https://github.com/Vetrash/002-console#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vetrash/002-console.git"
+  },
+  "dependencies": {
+    "readline": "^1.3.0",
+    "readline-sync": "^1.4.10",
+    "yargs": "^17.7.2"
+  }
+}
