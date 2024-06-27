@@ -1,0 +1,11 @@
+{"date":"2024-06-27T08:56:36.124Z","result":"Решка","num":2,"isWin":false,"answerPlayer":1}
+{"date":"2024-06-27T08:56:47.628Z","result":"Орел","num":1,"isWin":false,"answerPlayer":2}
+{"date":"2024-06-27T08:57:08.027Z","result":"Решка","num":2,"isWin":false,"answerPlayer":1}
+{"date":"2024-06-27T08:57:12.612Z","result":"Орел","num":1,"isWin":true,"answerPlayer":1}
+{"date":"2024-06-27T09:38:16.382Z","result":"Орел","num":1,"isWin":false,"answerPlayer":2}
+{"date":"2024-06-27T09:38:21.840Z","result":"Решка","num":2,"isWin":true,"answerPlayer":2}
+{"date":"2024-06-27T09:38:27.017Z","result":"Решка","num":2,"isWin":false,"answerPlayer":1}
+{"date":"2024-06-27T09:38:31.371Z","result":"Решка","num":2,"isWin":false,"answerPlayer":1}
+{"date":"2024-06-27T09:38:36.739Z","result":"Решка","num":2,"isWin":false,"answerPlayer":1}
+{"date":"2024-06-27T09:38:39.254Z","result":"Решка","num":2,"isWin":true,"answerPlayer":2}
+{"date":"2024-06-27T09:38:43.574Z","result":"Орел","num":1,"isWin":false,"answerPlayer":2}

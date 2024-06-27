@@ -5,10 +5,8 @@
   "main": "index.js",
   "type": "module",
   "bin": {
-    "current": "node ./task_1/current.js",
-    "add": "node ./task_1/add.js",
-    "sub": "node ./task_1/sub.js",
-    "guessGame": "node ./task_2/guessGame.js"
+    "coinToss": "node ./coinToss.js",
+    "analyzer": "node ./analyzer.js"
   },
   "scripts": {
     "current": "node ./index.js",
@@ -25,6 +23,7 @@
     "url": "git+https://github.com/Vetrash/002-console.git"
   },
   "dependencies": {
+    "fs": "^0.0.1-security",
     "readline": "^1.3.0",
     "readline-sync": "^1.4.10",
     "yargs": "^17.7.2"
