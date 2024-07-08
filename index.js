@@ -1,33 +1,111 @@
 #!/usr/bin/env node
 
-import axios from "axios";
-import rl from "readline-sync";
+import  express from 'express'
+import { v4 as uuidv4 } from 'uuid';
 
-const getWeather = async () => {
-  let city = "";
-  console.log(
-    `Погоду в каком городе вы хотите узнать?
-Введите название города на английском языке`
-  );
-  city = rl.question("city: ");
+class Book {
+    constructor(title = "", description = "", id = uuid(), authors = "", favorite = '', fileCover = '', fileName = '') {
+        this.id= id,
+        this. title - title,
+        this.description = description,
+        this.authors= authors,
+        this.favorite= favorite,
+        this.fileCover = fileCover,
+        this.fileName = fileName
+    }
+}
 
-  if (city.length < 1) {
-    console.log("Пожалуйста, введите город");
-    getWeather();
-    return;
-  }
-
-  const myAPIKey = process.env.myAPIKey;
-  const url = `https://api.weatherapi.com/v1/current.json?q=${city}&key=${myAPIKey}`;
-
-  try {
-    const response = await axios.get(url);
-    console.log(response.data);
-    return;
-  } catch (error) {
-    console.error(error);
-    return;
-  }
+const stor = {
+    books: [
+    ],
 };
 
-getWeather();
+const app = express()
+app.use(express.json())
+
+
+app.post('/api/user/login', (req, res) => {
+  const body = { id: 1, mail: "test@mail.ru" }
+  res.status(201)
+  res.json(body)
+})
+
+
+
+
+
+
+
+app.get('/api/books', (req, res) => {
+  const {id} = req.params
+  console.log('id', id)
+  
+  const {books} = stor
+  res.json(books)
+})
+
+app.post('/api/books', (req, res) => {
+    const {books} = stor
+    const {title, description, authors, favorite, fileCover , fileName } = req.body
+    const id = uuidv4()
+
+    const newBook = new Book(title, description, id, authors, favorite, fileCover , fileName )
+    books.push(newBook)
+
+    res.status(201)
+    res.json(newBook)
+})
+
+app.put('/api/books/:id', (req, res) => {
+    const {books} = stor
+    const {title, description, authors, favorite, fileCover , fileName } = req.body
+    const {id} = req.params
+    const idx = books.findIndex(el => el.id === id)
+
+    if (idx !== -1){
+        books[idx] = {
+            ...books[idx],
+            title, description, authors, favorite, fileCover , fileName 
+        }
+
+        res.json(books[idx])
+    } else {
+        res.status(404)
+        res.json('404 | Такой книги нет')
+    }
+})
+
+app.delete('/api/books/:id', (req, res) => {
+    const {books} = stor
+    const {id} = req.params
+    const idx = books.findIndex(el => el.id === id)
+     
+    if(idx !== -1){
+        books.splice(idx, 1)
+        res.json(true)
+    } else {
+        res.status(404)
+        res.json('404 | Такой книги нет')
+    }
+})
+
+
+app.get('/api/books/:id', (req, res) => {
+  const {books} = stor
+  const {id} = req.params
+  const idx = books.findIndex(el => el.id === id)
+  console.log(idx)
+
+  if( idx !== -1) {
+      res.json(books[idx])
+  } else {
+      res.status(404)
+      res.json('404 | Такой книги нет')
+  }
+
+})
+
+const PORT = process.env.PORT || 3000
+app.listen(PORT, () => {
+  console.log(`приложение запущено на http://localhost:${PORT}` )
+});
