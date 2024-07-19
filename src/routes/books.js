@@ -26,9 +26,10 @@ class Book {
   }
 }
 
-const stor = {
+export const stor = {
   books: [],
 };
+
 
 const router = Router();
 export default router;
@@ -40,11 +41,34 @@ router.get("/", (req, res) => {
   res.json(books);
 });
 
-router.post("/", fileMulter.single("file"), (req, res) => {
+
+const upload = fileMulter.fields([
+  { name: 'fileBook', maxCount: 1 },
+  { name: 'fileCover', maxCount: 1 }
+]);
+
+
+router.post("/create", upload, (req, res) => {
   const { books } = stor;
-  const { title, description, authors, favorite, fileCover, fileName } =
+  const { title, description, authors, favorite, fileName } =
     req.body;
-  const fileBook = req.file ? req.file.path : "";
+
+ 
+
+
+    if (!req.files.fileBook || !req.files.fileCover) {
+     // return res.status(400).json({ message: "Не удалось загрузить файлы" });
+    }
+  
+    // Получаем пути к загруженным файлам
+    const fileBook = req.files.fileBook ? req.files.fileBook[0].path : "" ; // Путь к файлу книги
+    const fileCover = req.files.fileCover ? req.files.fileCover[0].path : ''; // Путь к файлу обложки
+
+
+    console.log(req.files.fileBook)
+
+
+  //const fileBook = req.file ? req.file.path : "";
 
   const id = uuidv4();
 
@@ -64,13 +88,17 @@ router.post("/", fileMulter.single("file"), (req, res) => {
   res.json(newBook);
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id",fileMulter.single("fileBook"), (req, res) => {
   const { books } = stor;
   const { title, description, authors, favorite, fileCover, fileName } =
     req.body;
   const { id } = req.params;
+  const fileBook = req.file ? req.file.path : "";
   const idx = books.findIndex((el) => el.id === id);
 
+
+
+  
   if (idx !== -1) {
     books[idx] = {
       ...books[idx],
@@ -80,6 +108,7 @@ router.put("/:id", (req, res) => {
       favorite,
       fileCover,
       fileName,
+      fileBook
     };
 
     res.json(books[idx]);

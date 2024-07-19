@@ -1,0 +1,68 @@
+<%- include('../port/layout-start', {title: title}) %>
+<%- include('../port/menu') %>
+
+<h1><%= title %></h1>
+
+<div class="row">
+    <div class="col-sm-8">
+        <div class="card">
+            <div class="card-body">
+
+                <h5 class="card-title"><%= books.title %></h5>
+                <p class="card-text"> <span>Описание: </span>  <%= books.description %></p>
+                <p class="card-text"><span>Автор(ы) </span> <%= books.authors %></p>
+                <p class="card-text"> <%= books.favorite ? 'Книга в избранном' : 'Книга не добавлена в избранное' %></p>
+                <p class="card-text"><span>файл обложки:</span> <%= books.fileCover %></p>
+                <p class="card-text"><span>Имя файла:</span> <%= books.fileName %></p>
+                <p class="card-text"><span>Файл книги:</span> <%= books.fileBook %></p>
+       
+              
+
+
+
+                <div class="text-right">
+                    <a class="btn btn-sm btn-primary" href="/books/update/<%= books.id %>">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                    <button
+                    class="btn btn-sm btn-danger"
+                    id="deleteBtn"
+                    data-id="<%= books.id %>"
+                  >
+                    <i class="fa fa-trash" aria-hidden="true" data-id="<%= books.id %>"></i>
+                  </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      document
+        .getElementById("deleteBtn")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          const id = e.target.dataset.id;
+          console.log(e.target.dataset.id);
+          const urlAPI = `${window.location.origin}/api/books/${id}`;
+  
+          fetch(urlAPI, {
+            method: "DELETE",
+          })
+            .then((res) =>  window.location.href = "/")
+  
+            .catch((error) => {
+              console.error("Error:", error);
+              alert("An error occurred: " + error);
+            });
+        });
+    });
+  </script>
+
+
+<%- include('../port/layout-end') %>
