@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { stor } from "./books.js";
+import fetch from 'node-fetch'; 
 
 const router = Router();
 export default router;
@@ -20,16 +21,20 @@ router.get("/create", (req, res) => {
   });
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", async (req, res) => {
   const { books } = stor;
   const { id } = req.params;
 
-  const book = findBooks(id, books);
+  await fetch(`http://localhost:3001/api/counter/${id}/incr`,{ method: 'POST' });
+  const response = await fetch(`http://localhost:3001/api/counter/${id}`);
+  const counter = await response.json();
+
+  const book = findBooks(id, books, res);
   if (!book) return;
 
   res.render("books/view", {
     title: "books | view",
-    books: book,
+    books: {...book, counter},
   });
 });
 
@@ -38,7 +43,7 @@ router.get("/books/update/:id", (req, res) => {
   const { id } = req.params;
 
 
-  const book = findBooks(id, books);
+  const book = findBooks(id, books, res);
   if (!book) return;
 
   res.render("books/update", {
@@ -47,7 +52,7 @@ router.get("/books/update/:id", (req, res) => {
   });
 });
 
-const findBooks = (id, books) =>{
+const findBooks = (id, books, res) =>{
 
     const idx = books.findIndex((el) => el.id === id);
 

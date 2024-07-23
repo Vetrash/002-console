@@ -9,6 +9,7 @@
             <div class="card-body">
 
                 <h5 class="card-title"><%= books.title %></h5>
+                <p class="card-text"> <span>Просмотров : </span>  <%= books.counter %></p>
                 <p class="card-text"> <span>Описание: </span>  <%= books.description %></p>
                 <p class="card-text"><span>Автор(ы) </span> <%= books.authors %></p>
                 <p class="card-text"> <%= books.favorite ? 'Книга в избранном' : 'Книга не добавлена в избранное' %></p>
