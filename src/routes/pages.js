@@ -25,8 +25,8 @@ router.get("/:id", async (req, res) => {
   const { books } = stor;
   const { id } = req.params;
 
-  await fetch(`http://localhost:3001/api/counter/${id}/incr`,{ method: 'POST' });
-  const response = await fetch(`http://localhost:3001/api/counter/${id}`);
+  await fetch(`http://counter-service:3001/api/counter/${id}/incr`,{ method: 'POST' });
+  const response = await fetch(`http://counter-service:3001/api/counter/${id}`);
   const counter = await response.json();
 
   const book = findBooks(id, books, res);
